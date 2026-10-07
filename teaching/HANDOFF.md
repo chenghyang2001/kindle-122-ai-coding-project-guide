@@ -45,4 +45,73 @@
 
 | 章 | 步 | 狀態 | 備註 |
 | --- | --- | --- | --- |
-| 1 | 第 1 步：LLM 不是資料庫——不存在的函式（1.5 節） | ⏳ 影片已播放，等使用者操作 | 旁白／影片／說明：`ch01-step1.txt`／`.mp4`／`teaching/steps/ch01-step1.md`；練習資料夾 `k122-ch01-practice` |
+| 1 | 第 1 步：LLM 不是資料庫——不存在的函式（1.5 節） | ⏳ **從這裡接續**：影片已做好，使用者還沒操作（2026-10-08 改到另一台筆電做） | 旁白／影片／說明：`ch01-step1.txt`／`.mp4`／`teaching/steps/ch01-step1.md`；練習資料夾 `k122-ch01-practice` |
+
+---
+
+## 3. 換到另一台筆電接續（2026-10-08 寫）
+
+> 原機器：家用機。第 1 章第 1 步的旁白、影片、說明檔都做好了，**使用者還沒開始操作**。
+> 接續後，**教學 session 和練習 session 要在同一台電腦上**：判讀時要讀練習資料夾的對話記錄（`~/.claude/projects/` 底下的 jsonl），那些記錄只存在操作的那台機器上。
+
+### 3-1 需要的檔案
+
+全部都在 GitHub，不用另外搬：
+
+| 東西 | 位置 |
+| --- | --- |
+| 教學 repo（教材、影片、工具、進度表） | <https://github.com/chenghyang2001/kindle-122-ai-coding-project-guide> |
+| 書附範例 | 同一個 repo 的 submodule `code/HAM-Radio-Practice-Web`，`--recurse-submodules` 會一起抓下來 |
+| 第 1 章第 1 步教材 | `teaching/narration/ch01-step1.txt`、`teaching/videos/ch01-step1.mp4`、`teaching/steps/ch01-step1.md` |
+| NotebookLM 來源 PDF（選用，參考） | AutoRead-GoogleBook repo 的 `kindle-122-ai-coding-project-guide/pdf/` |
+
+語音導讀、簡報網頁、YouTube 都在 VPS 上自動處理，跟換哪台電腦無關。
+
+### 3-2 新筆電的準備步驟（Windows，PowerShell）
+
+已經裝好的可以跳過。**每一步都要驗證**：
+
+```powershell
+winget install --id Git.Git -e
+winget install --id Python.Python.3.12 -e
+winget install --id astral-sh.uv -e
+winget install --id Gyan.FFmpeg -e
+winget install --id VideoLAN.VLC -e
+```
+
+裝完後**關掉 PowerShell 重開**，再執行下面的驗證和安裝：
+
+```powershell
+git --version; python --version; uv --version; ffmpeg -version | Select-Object -First 1
+python -m pip install edge-tts
+claude --version
+```
+
+沒有 Claude Code 的話，先執行 `irm https://claude.ai/install.ps1 | iex`。
+
+### 3-3 下載 repo
+
+```powershell
+mkdir $env:USERPROFILE\workspace -Force
+cd $env:USERPROFILE\workspace
+git clone --recurse-submodules https://github.com/chenghyang2001/kindle-122-ai-coding-project-guide
+cd kindle-122-ai-coding-project-guide
+git submodule status
+```
+
+`git submodule status` 的那一行開頭**不能是 `-`**。如果是 `-`，就執行 `git submodule update --init`。
+
+### 3-4 驗證字幕影片工具
+
+```powershell
+python teaching/tools/make_caption_video.py --self-test
+python teaching/tools/make_caption_video.py teaching/narration/ch01-step1.txt --out teaching/videos/test.mp4 --play
+```
+
+要看到 `SELF_TEST_PASS`，而且 VLC 跳出來，同時有聲音和中文字幕。`test.mp4` 驗完可以刪掉。
+
+**如果找不到 ffmpeg**：Claude Code 的 Git Bash 有時讀不到 winget 寫入的 PATH，這時改用 `where ffmpeg` 找出 ffmpeg 所在的 bin 資料夾，再 `export PATH="<那個 bin 路徑>:$PATH"`。
+
+### 3-5 開始接續
+
+在 repo 資料夾輸入 `claude`，貼上 `teaching/START-PROMPT.md` 的「換電腦接續」那段。
