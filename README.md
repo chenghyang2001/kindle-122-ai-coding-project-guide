@@ -36,4 +36,4 @@ uv venv --python 3.12 .venv && uv pip install --python .venv -r requirements.txt
 - `app.py` 與 `app/` 套件同名，所以 `flask run` 找不到 app。
 - `tests/` 是空的。這正好是第 8 章「用 AI 生成測試」的練習對象。
 
-範例程式碼的著作權屬於原作者與出版社（MIT License），本 repo 只用於個人學習。
+範例程式碼的著作權屬於原作者與出版社（GPL-3.0），本 repo 只用於個人學習。
