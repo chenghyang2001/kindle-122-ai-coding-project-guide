@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.ruff_cache/
+.pytest_cache/
+*.stackdump
+core
+*.core
+*.dmp
+.env
+# 演練副本（app 執行時會改寫 questions.db），只留紀錄不留副本
+demo/work/ham-app/

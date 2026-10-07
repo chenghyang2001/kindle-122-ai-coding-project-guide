@@ -1,0 +1,3 @@
+[submodule "code/HAM-Radio-Practice-Web"]
+	path = code/HAM-Radio-Practice-Web
+	url = https://github.com/JeremyMorgan/HAM-Radio-Practice-Web

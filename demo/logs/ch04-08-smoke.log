@@ -1,0 +1,41 @@
+[2026-10-08 02:39:11,505] ERROR in app: Exception on /delete-cookie [GET]
+Traceback (most recent call last):
+  File "C:\Users\user\workspace\kindle-122-ai-coding-project-guide\demo\work\ham-app\.venv\Lib\site-packages\flask\app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\workspace\kindle-122-ai-coding-project-guide\demo\work\ham-app\.venv\Lib\site-packages\flask\app.py", line 870, in full_dispatch_request
+    return self.finalize_request(rv)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\workspace\kindle-122-ai-coding-project-guide\demo\work\ham-app\.venv\Lib\site-packages\flask\app.py", line 889, in finalize_request
+    response = self.make_response(rv)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\workspace\kindle-122-ai-coding-project-guide\demo\work\ham-app\.venv\Lib\site-packages\flask\app.py", line 1161, in make_response
+    raise TypeError(
+TypeError: The view function for 'before_request' did not return a valid response. The function either returned None or ended without a return statement.
+== 情境1：全部答對
+136
+{'questions_correct': 35, 'questions_incorrect': 0}
+session 136 作答 35 題 [('Passed Test', '', ''), ('', '35', ''), ('', '', '100.0 Percent.')] 0.27s
+題組筆數/不重複: (35, 35)
+== 情境2：全部答錯
+137
+{'questions_correct': 0, 'questions_incorrect': 35}
+[('Failed Test', '', ''), ('', '0', ''), ('', '', '0.0 Percent.')]
+== 情境3：剛好 26 題對（及格線 74%）
+138
+{'questions_correct': 26, 'questions_incorrect': 9}
+[('Passed Test', '', ''), ('', '26', ''), ('', '', '74.0 Percent.')]
+== 情境4：同一題 POST 兩次（重新整理）
+計分總數: (2,) 第二次轉址到 /quiz/T1C01/2
+== 情境5：沒選答案送出
+狀態碼 400
+== 情境6：/delete-cookie
+狀態碼 500
+== 情境7：不存在的題號
+狀態碼 200
+== 情境8：沒有 cookie 直接看結果
+None
+{'questions_correct': 0, 'questions_incorrect': 0}
+狀態碼 200
+== 情境9：空資料庫的第一個 session
+session 1 sessions 表: [] → 第二次 POST 轉址到 /quiz/T1A06/2
